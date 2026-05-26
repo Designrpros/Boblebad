@@ -1,8 +1,55 @@
-// src/components/BoblebadPortal.tsx
 "use client";
 
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
+
+// Custom bubble data matrix configuration mapping
+const bubbles = [
+  /* Left Segment Loops (0% - 25%) */
+  { size: 'w-12 h-12', left: 'left-[1%]' },
+  { size: 'w-20 h-20', left: 'left-[3%]', duration: '15s', delay: '3s' },
+  { size: 'w-8 h-8', left: 'left-[5%]', duration: '9s', delay: '1.5s' },
+  { size: 'w-24 h-24', left: 'left-[8%]', duration: '18s', delay: '5s' },
+  { size: 'w-14 h-14', left: 'left-[11%]', duration: '13s', delay: '0.8s' },
+  { size: 'w-18 h-18', left: 'left-[14%]', duration: '14s', delay: '4.2s' },
+  { size: 'w-10 h-10', left: 'left-[17%]', duration: '10s', delay: '2.5s' },
+  { size: 'w-26 h-26', left: 'left-[20%]', duration: '19s', delay: '6.2s' },
+  { size: 'w-15 h-15', left: 'left-[23%]', duration: '12s', delay: '1.1s' },
+
+  /* Mid-Left Segment Loops (25% - 50%) */
+  { size: 'w-22 h-22', left: 'left-[26%]', duration: '16s', delay: '7.5s' },
+  { size: 'w-7 h-7', left: 'left-[29%]', duration: '8s', delay: '0.3s' },
+  { size: 'w-28 h-28', left: 'left-[32%]', duration: '21s', delay: '3.8s' },
+  { size: 'w-12 h-12', left: 'left-[35%]', duration: '11s', delay: '2.2s' },
+  { size: 'w-19 h-19', left: 'left-[38%]', duration: '14s', delay: '5.7s' },
+  { size: 'w-32 h-32', left: 'left-[41%]', duration: '25s', delay: '9s' },
+  { size: 'w-9 h-9', left: 'left-[44%]', duration: '10s', delay: '1.4s' },
+  { size: 'w-21 h-21', left: 'left-[47%]', duration: '15s', delay: '4.8s' },
+
+  /* Mid-Right Segment Loops (50% - 75%) */
+  { size: 'w-14 h-14', left: 'left-[50%]', duration: '13s', delay: '8.1s' },
+  { size: 'w-30 h-30', left: 'left-[53%]', duration: '23s', delay: '0.5s' },
+  { size: 'w-11 h-11', left: 'left-[56%]', duration: '10s', delay: '5.2s' },
+  { size: 'w-25 h-25', left: 'left-[59%]', duration: '17s', delay: '2.7s' },
+  { size: 'w-8 h-8', left: 'left-[62%]', duration: '9s', delay: '10.2s' },
+  { size: 'w-23 h-23', left: 'left-[65%]', duration: '16s', delay: '6.9s' },
+  { size: 'w-16 h-16', left: 'left-[68%]', duration: '14s', delay: '4.5s' },
+  { size: 'w-27 h-27', left: 'left-[71%]', duration: '20s', delay: '1.1s' },
+  { size: 'w-10 h-10', left: 'left-[74%]', duration: '11s', delay: '3.3s' },
+
+  /* Right Segment Loops (75% - 100%) */
+  { size: 'w-20 h-20', left: 'left-[77%]', duration: '15s', delay: '5.8s' },
+  { size: 'w-13 h-13', left: 'left-[80%]', duration: '12s', delay: '0.4s' },
+  { size: 'w-29 h-29', left: 'left-[83%]', duration: '22s', delay: '7.1s' },
+  { size: 'w-7 h-7', left: 'left-[85%]', duration: '8s', delay: '2.2s' },
+  { size: 'w-18 h-18', left: 'left-[87%]', duration: '13s', delay: '0.5s' },
+  { size: 'w-32 h-32', left: 'left-[89%]', duration: '26s', delay: '11s' },
+  { size: 'w-12 h-12', left: 'left-[91%]', duration: '11s', delay: '3.9s' },
+  { size: 'w-24 h-24', left: 'left-[93%]', duration: '18s', delay: '1.8s' },
+  { size: 'w-9 h-9', left: 'left-[95%]', duration: '10s', delay: '5.5s' },
+  { size: 'w-21 h-21', left: 'left-[97%]', duration: '15s', delay: '8.2s' },
+  { size: 'w-14 h-14', left: 'left-[99%]', duration: '13s', delay: '0.1s' },
+];
 
 export default function BoblebadPortal() {
   const [mounted, setMounted] = useState(false);
@@ -13,63 +60,28 @@ export default function BoblebadPortal() {
 
   if (!mounted) return <div className="min-h-screen bg-[#ffffff]" />;
 
-  // Common styling for the minimal social media link bars
   const linkItemStyle = "group flex items-center justify-between w-full max-w-md py-3.5 border-b border-slate-900/10 hover:border-slate-900 text-slate-800 hover:text-slate-900 transition-all duration-200 cursor-pointer text-left";
 
   return (
-    <div className="h-screen w-screen relative overflow-hidden dynamic-bg flex items-center select-none">
+    <div className="min-h-screen lg:h-screen w-screen relative overflow-y-auto lg:overflow-hidden dynamic-bg flex items-center select-none">
       
       {/* 📏 LEFT SIDE LAYOUT LINES */}
       <div className="absolute left-6 top-0 bottom-0 w-px bg-slate-900/[0.04] pointer-events-none z-20" />
       <div className="absolute left-12 top-0 bottom-0 w-px bg-slate-900/[0.02] pointer-events-none z-20" />
       <div className="absolute left-20 top-0 bottom-0 w-px bg-slate-900/[0.01] pointer-events-none z-20" />
 
-      {/* 🫧 HIGH-DENSITY IMMERSION BUBBLE MATRIX (Z-INDEX 12) */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none z-12">
-        {/* Left Segment Loops (0% - 25%) */}
-        <div className="bg-bubble w-12 h-12 left-[1%] bg-gradient-to-tr from-pink-300/25 via-transparent to-transparent" style={{ animationDuration: '11s', animationDelay: '0s' }} />
-        <div className="bg-bubble w-20 h-20 left-[3%] bg-gradient-to-tr from-cyan-300/30 via-transparent to-transparent" style={{ animationDuration: '15s', animationDelay: '3s' }} />
-        <div className="bg-bubble w-8 h-8 left-[5%] bg-gradient-to-tr from-purple-300/20 via-transparent to-transparent" style={{ animationDuration: '9s', animationDelay: '1.5s' }} />
-        <div className="bg-bubble w-24 h-24 left-[8%] bg-gradient-to-tr from-amber-300/25 via-transparent to-transparent" style={{ animationDuration: '18s', animationDelay: '5s' }} />
-        <div className="bg-bubble w-14 h-14 left-[11%] bg-gradient-to-tr from-emerald-300/20 via-transparent to-transparent" style={{ animationDuration: '13s', animationDelay: '0.8s' }} />
-        <div className="bg-bubble w-18 h-18 left-[14%] bg-gradient-to-tr from-pink-300/25 via-transparent to-transparent" style={{ animationDuration: '14s', animationDelay: '4.2s' }} />
-        <div className="bg-bubble w-10 h-10 left-[17%] bg-gradient-to-tr from-cyan-300/30 via-transparent to-transparent" style={{ animationDuration: '10s', animationDelay: '2.5s' }} />
-        <div className="bg-bubble w-26 h-26 left-[20%] bg-gradient-to-tr from-purple-300/20 via-transparent to-transparent" style={{ animationDuration: '19s', animationDelay: '6.2s' }} />
-        <div className="bg-bubble w-15 h-15 left-[23%] bg-gradient-to-tr from-amber-300/25 via-transparent to-transparent" style={{ animationDuration: '12s', animationDelay: '1.1s' }} />
-
-        {/* Mid-Left Segment Loops (25% - 50%) */}
-        <div className="bg-bubble w-22 h-22 left-[26%] bg-gradient-to-tr from-emerald-300/20 via-transparent to-transparent" style={{ animationDuration: '16s', animationDelay: '7.5s' }} />
-        <div className="bg-bubble w-7 h-7 left-[29%] bg-gradient-to-tr from-pink-300/25 via-transparent to-transparent" style={{ animationDuration: '8s', animationDelay: '0.3s' }} />
-        <div className="bg-bubble w-28 h-28 left-[32%] bg-gradient-to-tr from-cyan-300/30 via-transparent to-transparent" style={{ animationDuration: '21s', animationDelay: '3.8s' }} />
-        <div className="bg-bubble w-12 h-12 left-[35%] bg-gradient-to-tr from-purple-300/20 via-transparent to-transparent" style={{ animationDuration: '11s', animationDelay: '2.2s' }} />
-        <div className="bg-bubble w-19 h-19 left-[38%] bg-gradient-to-tr from-amber-300/25 via-transparent to-transparent" style={{ animationDuration: '14s', animationDelay: '5.7s' }} />
-        <div className="bg-bubble w-32 h-32 left-[41%] bg-gradient-to-tr from-emerald-300/25 via-transparent to-transparent" style={{ animationDuration: '25s', animationDelay: '9s' }} />
-        <div className="bg-bubble w-9 h-9 left-[44%] bg-gradient-to-tr from-pink-300/20 via-transparent to-transparent" style={{ animationDuration: '10s', animationDelay: '1.4s' }} />
-        <div className="bg-bubble w-21 h-21 left-[47%] bg-gradient-to-tr from-cyan-300/25 via-transparent to-transparent" style={{ animationDuration: '15s', animationDelay: '4.8s' }} />
-
-        {/* Mid-Right Segment Loops (50% - 75%) */}
-        <div className="bg-bubble w-14 h-14 left-[50%] bg-gradient-to-tr from-purple-300/30 via-transparent to-transparent" style={{ animationDuration: '13s', animationDelay: '8.1s' }} />
-        <div className="bg-bubble w-30 h-30 left-[53%] bg-gradient-to-tr from-amber-300/20 via-transparent to-transparent" style={{ animationDuration: '23s', animationDelay: '0.5s' }} />
-        <div className="bg-bubble w-11 h-11 left-[56%] bg-gradient-to-tr from-emerald-300/25 via-transparent to-transparent" style={{ animationDuration: '10s', animationDelay: '5.2s' }} />
-        <div className="bg-bubble w-25 h-25 left-[59%] bg-gradient-to-tr from-pink-300/25 via-transparent to-transparent" style={{ animationDuration: '17s', animationDelay: '2.7s' }} />
-        <div className="bg-bubble w-8 h-8 left-[62%] bg-gradient-to-tr from-cyan-300/20 via-transparent to-transparent" style={{ animationDuration: '9s', animationDelay: '10.2s' }} />
-        <div className="bg-bubble w-23 h-23 left-[65%] bg-gradient-to-tr from-purple-300/25 via-transparent to-transparent" style={{ animationDuration: '16s', animationDelay: '6.9s' }} />
-        <div className="bg-bubble w-16 h-16 left-[68%] bg-gradient-to-tr from-amber-300/30 via-transparent to-transparent" style={{ animationDuration: '14s', animationDelay: '4.5s' }} />
-        <div className="bg-bubble w-27 h-27 left-[71%] bg-gradient-to-tr from-emerald-300/20 via-transparent to-transparent" style={{ animationDuration: '20s', animationDelay: '1.1s' }} />
-        <div className="bg-bubble w-10 h-10 left-[74%] bg-gradient-to-tr from-pink-300/25 via-transparent to-transparent" style={{ animationDuration: '11s', animationDelay: '3.3s' }} />
-
-        {/* Right Segment Loops (75% - 100%) */}
-        <div className="bg-bubble w-20 h-20 left-[77%] bg-gradient-to-tr from-cyan-300/25 via-transparent to-transparent" style={{ animationDuration: '15s', animationDelay: '5.8s' }} />
-        <div className="bg-bubble w-13 h-13 left-[80%] bg-gradient-to-tr from-purple-300/20 via-transparent to-transparent" style={{ animationDuration: '12s', animationDelay: '0.4s' }} />
-        <div className="bg-bubble w-29 h-29 left-[83%] bg-gradient-to-tr from-amber-300/30 via-transparent to-transparent" style={{ animationDuration: '22s', animationDelay: '7.1s' }} />
-        <div className="bg-bubble w-7 h-7 left-[85%] bg-gradient-to-tr from-emerald-300/25 via-transparent to-transparent" style={{ animationDuration: '8s', animationDelay: '2.2s' }} />
-        <div className="bg-bubble w-18 h-18 left-[87%] bg-gradient-to-tr from-pink-300/25 via-transparent to-transparent" style={{ animationDuration: '13s', animationDelay: '0.5s' }} />
-        <div className="bg-bubble w-32 h-32 left-[89%] bg-gradient-to-tr from-cyan-300/20 via-transparent to-transparent" style={{ animationDuration: '26s', animationDelay: '11s' }} />
-        <div className="bg-bubble w-12 h-12 left-[91%] bg-gradient-to-tr from-purple-300/25 via-transparent to-transparent" style={{ animationDuration: '11s', animationDelay: '3.9s' }} />
-        <div className="bg-bubble w-24 h-24 left-[93%] bg-gradient-to-tr from-amber-300/30 via-transparent to-transparent" style={{ animationDuration: '18s', animationDelay: '1.8s' }} />
-        <div className="bg-bubble w-9 h-9 left-[95%] bg-gradient-to-tr from-emerald-300/20 via-transparent to-transparent" style={{ animationDuration: '10s', animationDelay: '5.5s' }} />
-        <div className="bg-bubble w-21 h-21 left-[97%] bg-gradient-to-tr from-pink-300/25 via-transparent to-transparent" style={{ animationDuration: '15s', animationDelay: '8.2s' }} />
-        <div className="bg-bubble w-14 h-14 left-[99%] bg-gradient-to-tr from-cyan-300/20 via-transparent to-transparent" style={{ animationDuration: '13s', animationDelay: '0.1s' }} />
+      {/* 🫧 HIGH-DENSITY IMMERSION BUBBLE MATRIX */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none z-10">
+        {bubbles.map((bubble, index) => (
+          <div
+            key={index}
+            className={`bg-bubble ${bubble.size} ${bubble.left}`}
+            style={{
+              animationDuration: bubble.duration || '14s',
+              animationDelay: bubble.delay || '0s',
+            }}
+          />
+        ))}
       </div>
 
       {/* CORE WORKSPACE FRAMING GRID */}
@@ -80,7 +92,6 @@ export default function BoblebadPortal() {
           
           {/* Header Branding Profile */}
           <div className="space-y-4">
-            {/* 🆕 BRAND LOGO REPLACEMENT CONTAINER */}
             <div className="w-full max-w-sm md:max-w-md pb-2 select-none">
               <Image 
                 src="/boblebad-logo.png" 
@@ -102,7 +113,7 @@ export default function BoblebadPortal() {
             
             {/* 🟢 SPOTIFY HUB */}
             <a 
-              href="https://open.spotify.com/artist/6PiZkOHul8gEBrwWL1Koum?si=OsayUxCTSaK16x5BgT3iow&utm_medium=share&utm_source=linktree&nd=1&dlsi=ada6075fc63b4365" 
+              href="https://open.spotify.com" /* Put real artist link here */
               target="_blank" 
               rel="noopener noreferrer" 
               className={linkItemStyle}
@@ -149,7 +160,7 @@ export default function BoblebadPortal() {
               <span className="font-mono text-[10px] text-slate-400 group-hover:translate-x-1 transition-transform">// FOLLOW</span>
             </a>
 
-            {/* ☁️ SOUNDCLOUD ARCHIVE (SHARP STABLE RECONSTRUCTION) */}
+            {/* ☁️ SOUNDCLOUD TAPE ROOM */}
             <a 
               href="https://soundcloud.com/boblebad1" 
               target="_blank" 
