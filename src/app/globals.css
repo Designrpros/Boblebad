@@ -1,0 +1,88 @@
+@import "tailwindcss";
+
+:root {
+  --fg-main: #0f172a;
+}
+
+body {
+  color: var(--fg-main);
+  background: #e0f2f1;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  overflow: hidden; /* Viewport lockdown for a clean single-page hero layout */
+  margin: 0;
+  padding: 0;
+}
+
+/* 🪐 UNTOUCHED: PERFECT PASTEL BACKDROP CODES */
+.dynamic-bg {
+  background: linear-gradient(-45deg, #bae6fd, #a7f3d0, #fef08a, #fed7aa, #fbcfe8);
+  background-size: 400% 400%;
+  animation: dynamic-gradient-move 12s ease infinite;
+}
+
+@keyframes dynamic-gradient-move {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* 🌈 CENTRAL STICKER SPECTRUM LOOP */
+.rainbow-spectrum {
+  background: linear-gradient(45deg, #ff007f, #7928ca, #00dfd8, #ffbf00, #ff007f);
+  background-size: 200% 200%;
+  animation: rainbow-shift 6s linear infinite;
+}
+
+@keyframes rainbow-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* 🫧 ADVANCED HIGH-CONTRAST BUBBLE PHYSICS ENGINE */
+@keyframes bubble-float {
+  0% {
+    transform: translateY(105vh) translateX(0) scale(0.4);
+    opacity: 0;
+  }
+  10% { opacity: 0.85; }
+  90% { opacity: 0.85; }
+  100% {
+    transform: translateY(-15vh) translateX(100px) scale(1.3);
+    opacity: 0;
+  }
+}
+
+.bg-bubble {
+  position: absolute;
+  bottom: -150px;
+  border-radius: 50%;
+  /* Added a subtle dark rim and multi-hued radial glare for high-contrast visibility on light backgrounds */
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  background: radial-gradient(circle at 35% 35%, 
+    rgba(255, 255, 255, 0.9) 0%, 
+    rgba(236, 72, 153, 0.12) 35%, 
+    rgba(6, 182, 212, 0.12) 65%, 
+    rgba(255, 255, 255, 0) 100%
+  );
+  box-shadow: 
+    inset 0 3px 12px rgba(255, 255, 255, 0.95),
+    inset -3px -3px 10px rgba(6, 182, 212, 0.15),
+    0 8px 24px rgba(15, 23, 42, 0.03);
+  animation: bubble-float infinite linear;
+  pointer-events: none;
+}
+
+/* 💿 UNTOUCHED: PERFECT 100VH VINYL COUPLING GROOVES ENGINE */
+.vinyl-grooves {
+  background: repeating-radial-gradient(
+    circle,
+    #111625,
+    #05070d 4px,
+    #1a2235 8px,
+    #05070d 10px
+  );
+  box-shadow: 
+    inset 0 0 100px rgba(0, 0, 0, 0.95),
+    -20px 0 80px rgba(0, 0, 0, 0.4);
+}
